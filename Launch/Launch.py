@@ -22,6 +22,52 @@ class Launch(QMainWindow):
         self.ui.lblPow3.setVisible(False)
         self.ui.lblPow4.setVisible(False)
 
+        self.ui.sliderPower.valueChanged.connect(self.ValueChanged)
+
+    def ValueChanged(self):
+        a = self.ui.sliderPower.value()
+
+        if (a > 100):
+            self.ui.lblError.setText("ENGINE  \nOVERLIMIT !! ")
+            print("%100 limit + !! OVERLIMIT !! ")
+        elif (a >= 100):
+            self.ui.lblPow1.setVisible(True)
+            self.ui.lblPow2.setVisible(True)
+            self.ui.lblPow3.setVisible(True)
+            self.ui.lblPow4.setVisible(True)
+            self.ui.lblError.setText("ON POWER LIMIT ")
+            if (a<99):
+                self.ui.lblPow4.setVisible(False)
+
+        elif (a >= 75):
+            self.ui.lblPow1.setVisible(True)
+            self.ui.lblPow2.setVisible(True)
+            self.ui.lblPow3.setVisible(True)
+            print("ENGINE POWER: ", a)
+            if(a<74):
+                self.ui.lblPow3.setVisible(False)
+
+
+        elif (a >= 45):
+
+            self.ui.lblPow1.setVisible(True)
+            self.ui.lblPow2.setVisible(True)
+            print("ENGINE POWER: ", a)
+            if (a < 44):
+                self.ui.lblPow2.setVisible(False)
+
+
+        elif (a >= 15):
+            self.ui.lblPow1.setVisible(True)
+            print("ENGINE POWER: ", a)
+            if (a < 14):
+                self.ui.lblPow1.setVisible(False)
+
+
+        elif (a <= 5):
+            self.ui.lblPow.setText("UP SLIDE")
+            print("ENGINE POWER: ", a)
+
 
     def EngineStart(self):
         E="ERROR: "
@@ -47,34 +93,6 @@ class Launch(QMainWindow):
 
             self.ui.lblError.setText("Engine Running")
 
-            a = self.ui.sliderPower.value()
-
-            if(a>100):
-                self.ui.lblError.setText("ENGINE  \nOVERLIMIT !! ")
-                print("%100 limit + !! OVERLIMIT !! ")
-            elif(a>=100):
-                self.ui.lblPow1.setVisible(True)
-                self.ui.lblPow2.setVisible(True)
-                self.ui.lblPow3.setVisible(True)
-                self.ui.lblPow4.setVisible(True)
-                print("%100 limit")
-
-            elif(a>=75):
-                self.ui.lblPow1.setVisible(True)
-                self.ui.lblPow2.setVisible(True)
-                self.ui.lblPow3.setVisible(True)
-                print("%75 limit")
-
-            elif(a>=45):
-
-                self.ui.lblPow1.setVisible(True)
-                self.ui.lblPow2.setVisible(True)
-                print("%45 limit")
-            elif(a>=15):
-                self.ui.lblPow1.setVisible(True)
-                print("%15 limit")
-            elif(a<=5):
-                self.ui.lblPow.setText("UP SLIDE")
 
         elif(chckTires==False):
             print(E,"Tires Systems")
